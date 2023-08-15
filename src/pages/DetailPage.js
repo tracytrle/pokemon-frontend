@@ -30,11 +30,10 @@ export const DetailPage = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getPokemonById(id));
-    // console.log("dispatch: ", dispatch);
   }, [id, dispatch]);
 
   useEffect(() => {
-    console.log("pokemon: ", typeof pokemon?.id);
+    console.log("pokemon in DetailPage: ", pokemon);
   }, [pokemon]);
 
   const weaknesses = calculateWeaknesses(pokemon?.types);
