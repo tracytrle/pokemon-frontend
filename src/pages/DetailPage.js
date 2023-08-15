@@ -27,18 +27,12 @@ export const DetailPage = () => {
     (state) => state.pokemons.pokemon
   );
 
-  const datapokemon = useSelector((state) => state.pokemons.pokemon);
   const { id } = useParams();
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log("print id: ", id);
     dispatch(getPokemonById(id));
   }, [id, dispatch]);
-
-  useEffect(() => {
-    console.log("datapokemon in DetailPage: ", pokemon);
-  }, []);
 
   const weaknesses = calculateWeaknesses(pokemon?.types);
 

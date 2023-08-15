@@ -18,7 +18,7 @@ export const getPokemons = createAsyncThunk(
         });
       };
       await timeout();
-      console.log("response.data: ", response.data);
+
       return response.data;
     } catch (error) {
       return rejectWithValue(error);
@@ -29,13 +29,12 @@ export const getPokemons = createAsyncThunk(
 export const getPokemonById = createAsyncThunk(
   "pokemons/getPokemonById",
   async (id, { rejectWithValue }) => {
-    console.log("id in slice: ", id);
     try {
       let url = `/pokemons/${id}`;
       const response = await apiService.get(url);
-      console.log("response.data in pokemonSlice: ", response);
-      // if (!response) return rejectWithValue({ message: "No data" });
-      //   console.log("response.data in pokemonSlice: ", response.data);
+
+      if (!response) return rejectWithValue({ message: "No data" });
+
       return response;
     } catch (error) {
       return rejectWithValue(error);
@@ -148,7 +147,6 @@ export const pokemonSlice = createSlice({
     [getPokemonById.fulfilled]: (state, action) => {
       state.loading = false;
       state.pokemon = action.payload;
-      console.log("in slice: ", state.pokemon);
     },
     [addPokemon.fulfilled]: (state) => {
       state.loading = false;
