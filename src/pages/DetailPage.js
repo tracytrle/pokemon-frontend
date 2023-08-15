@@ -26,17 +26,22 @@ export const DetailPage = () => {
   const { pokemon, nextPokemon, previousPokemon } = useSelector(
     (state) => state.pokemons.pokemon
   );
+
+  const datapokemon = useSelector((state) => state.pokemons.pokemon);
   const { id } = useParams();
   const dispatch = useDispatch();
+
   useEffect(() => {
+    console.log("print id: ", id);
     dispatch(getPokemonById(id));
   }, [id, dispatch]);
 
   useEffect(() => {
-    console.log("pokemon in DetailPage: ", pokemon);
-  }, [pokemon]);
+    console.log("datapokemon in DetailPage: ", pokemon);
+  }, []);
 
   const weaknesses = calculateWeaknesses(pokemon?.types);
+
   return (
     <Container maxWidth="lg" disableGutters sx={styles.container}>
       <Box position="relative">
@@ -359,9 +364,9 @@ const calculateWeaknesses = (types) => {
   };
 
   types.forEach((type) => {
-    weaknesses[type].weak.forEach((t) => total[t]++);
-    weaknesses[type].resistant.forEach((t) => total[t]--);
-    weaknesses[type].nullified.forEach((t) => total[t]--);
+    weaknesses[type.toLowerCase()].weak.forEach((t) => total[t]++);
+    weaknesses[type.toLowerCase()].resistant.forEach((t) => total[t]--);
+    weaknesses[type.toLowerCase()].nullified.forEach((t) => total[t]--);
   });
   let final = [];
   Object.keys(total).forEach((type) => {
